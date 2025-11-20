@@ -400,6 +400,16 @@ Este plugin é licenciado sob GPL v2 ou posterior.
 
 Para questões e suporte, entre em contato com [Fastwp](mailto:contato@fastwp.com.br)
 
+## 💖 Apoie o Desenvolvimento
+
+Se este plugin foi útil para você e deseja apoiar o desenvolvimento contínuo, considere fazer uma doação via PIX:
+
+**Chave PIX:** josefizudaa@gmail.com
+
+Sua contribuição ajuda a manter este projeto ativo e em constante evolução. Toda doação, independente do valor, é muito apreciada e nos motiva a continuar desenvolvendo ferramentas gratuitas para a comunidade.
+
+Muito obrigado pelo seu apoio! 🙏
+
 ---
 
 **Desenvolvido com ❤️ para o tema Listeo**
