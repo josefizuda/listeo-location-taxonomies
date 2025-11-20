@@ -1,0 +1,162 @@
+/**
+ * Listeo Location Taxonomies - Frontend Styles
+ */
+
+/* Location Search Wrapper */
+.listeo-location-search-wrapper {
+    margin-bottom: 20px;
+}
+
+.listeo-location-search-wrapper h4 {
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Location Filter Fields */
+.listeo-location-filter {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #666;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+}
+
+.listeo-location-filter:focus {
+    outline: none;
+    border-color: #66afe9;
+    box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
+}
+
+.listeo-location-filter:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Select2 Compatibility */
+.select2-container--default .listeo-location-filter {
+    border: none;
+    padding: 0;
+}
+
+/* Chosen Compatibility */
+.chosen-container {
+    width: 100% !important;
+}
+
+/* Loading State */
+.listeo-location-filter.loading {
+    background-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="none" stroke="%23999" stroke-width="2" stroke-dasharray="32" stroke-dashoffset="32"><animate attributeName="stroke-dashoffset" dur="1s" repeatCount="indefinite" from="32" to="0"/></circle></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px 16px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .listeo-location-search-wrapper .row > div {
+        margin-bottom: 15px;
+    }
+
+    .listeo-location-search-wrapper .row > div:last-child {
+        margin-bottom: 0;
+    }
+}
+
+/* Integration with Listeo Theme */
+.main-search-form .listeo-location-filter,
+.listeo-search-form .listeo-location-filter {
+    height: 50px;
+    border-radius: 4px;
+}
+
+/* Listeo Sidebar Compatibility */
+.sidebar-search .listeo-location-filter {
+    margin-bottom: 15px;
+}
+
+/* Split Map Compatibility */
+.split-map .listeo-location-search-wrapper {
+    background: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+/* Half Map Compatibility */
+.half-map .listeo-location-search-wrapper {
+    padding: 15px 0;
+}
+
+/* Error States */
+.listeo-location-filter.error {
+    border-color: #dc3545;
+}
+
+.listeo-location-filter.error:focus {
+    box-shadow: 0 0 5px rgba(220, 53, 69, 0.5);
+}
+
+/* Success States */
+.listeo-location-filter.success {
+    border-color: #28a745;
+}
+
+/* Dark Mode Support (if Listeo dark mode is enabled) */
+body.dark-mode .listeo-location-filter {
+    background-color: #2a2a2a;
+    border-color: #444;
+    color: #ccc;
+}
+
+body.dark-mode .listeo-location-filter:disabled {
+    background-color: #1a1a1a;
+    opacity: 0.5;
+}
+
+body.dark-mode .listeo-location-search-wrapper h4 {
+    color: #fff;
+}
+
+/* RTL Support */
+body.rtl .listeo-location-filter {
+    text-align: right;
+}
+
+/* Accessibility */
+.listeo-location-filter:focus-visible {
+    outline: 2px solid #4CAF50;
+    outline-offset: 2px;
+}
+
+/* Animation for field population */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.listeo-location-filter option {
+    animation: fadeIn 0.3s ease-in;
+}
+
+/* Placeholder styling */
+.listeo-location-filter option[value=""] {
+    color: #999;
+}
+
+/* Count badge in options */
+.listeo-location-filter option::after {
+    content: attr(data-count);
+    color: #999;
+    font-size: 0.9em;
+    margin-left: 5px;
+}

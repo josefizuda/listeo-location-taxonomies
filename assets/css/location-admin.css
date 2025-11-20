@@ -1,0 +1,163 @@
+/**
+ * Listeo Location Taxonomies - Admin Styles
+ */
+
+/* Term Edit Forms */
+.term-parent-estado-wrap,
+.term-parent-cidade-wrap {
+    margin-bottom: 15px;
+}
+
+.term-parent-estado-wrap label,
+.term-parent-cidade-wrap label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.term-parent-estado-wrap select,
+.term-parent-cidade-wrap select {
+    width: 100%;
+    max-width: 400px;
+}
+
+.term-parent-estado-wrap .description,
+.term-parent-cidade-wrap .description {
+    margin-top: 8px;
+    color: #646970;
+    font-style: italic;
+}
+
+/* Admin Columns */
+.column-listings {
+    width: 10%;
+}
+
+.column-parent_estado,
+.column-parent_cidade {
+    width: 20%;
+}
+
+/* Admin Notices */
+.notice.listeo-location-notice {
+    border-left-color: #66afe9;
+}
+
+.notice.listeo-location-notice p {
+    margin: 0.5em 0;
+}
+
+.notice.listeo-location-notice a {
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.notice.listeo-location-notice a:hover {
+    text-decoration: underline;
+}
+
+/* Taxonomy Page Enhancements */
+.taxonomy-estado .wrap h1,
+.taxonomy-cidade .wrap h1,
+.taxonomy-bairro .wrap h1 {
+    display: flex;
+    align-items: center;
+}
+
+.taxonomy-estado .wrap h1::before {
+    content: "📍";
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.taxonomy-cidade .wrap h1::before {
+    content: "🏙️";
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.taxonomy-bairro .wrap h1::before {
+    content: "🏘️";
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+/* Quick Edit Compatibility */
+.inline-edit-row .term-parent-estado-wrap,
+.inline-edit-row .term-parent-cidade-wrap {
+    padding: 0 0.5em;
+}
+
+/* Responsive Admin */
+@media screen and (max-width: 782px) {
+    .term-parent-estado-wrap select,
+    .term-parent-cidade-wrap select {
+        max-width: 100%;
+    }
+
+    .column-parent_estado,
+    .column-parent_cidade {
+        display: none;
+    }
+}
+
+/* Loading State in Admin */
+.term-parent-estado-wrap.loading select,
+.term-parent-cidade-wrap.loading select {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Hierarchy Indicator */
+.taxonomy-cidade .term-parent-estado-wrap::before,
+.taxonomy-bairro .term-parent-cidade-wrap::before {
+    content: "⤷";
+    margin-right: 5px;
+    color: #999;
+    font-size: 1.2em;
+}
+
+/* Help Text */
+.listeo-location-help {
+    background: #f0f6fc;
+    border: 1px solid #d0e4f7;
+    border-radius: 4px;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+.listeo-location-help h4 {
+    margin-top: 0;
+    color: #0366d6;
+}
+
+.listeo-location-help ul {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.listeo-location-help li {
+    margin-bottom: 5px;
+}
+
+/* Success Message */
+.listeo-location-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+    padding: 12px 15px;
+    margin: 15px 0;
+    border-radius: 4px;
+    border-left: 4px solid #28a745;
+}
+
+/* Warning Message */
+.listeo-location-warning {
+    background-color: #fff3cd;
+    border-color: #ffeaa7;
+    color: #856404;
+    padding: 12px 15px;
+    margin: 15px 0;
+    border-radius: 4px;
+    border-left: 4px solid #ffc107;
+}
