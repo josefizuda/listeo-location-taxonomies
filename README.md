@@ -400,8 +400,9 @@ This plugin is licensed under GPL v2 or later.
 
 ## 📞 Support
 
-For questions and support, contact [Fastwp](mailto:contact@fastwp.com)
+For questions and support, contact [Fastwp](mailto:dev@josef.com.br)
 
 ---
 
 **Developed with ❤️ for the Listeo theme**
+
