@@ -402,6 +402,16 @@ This plugin is licensed under GPL v2 or later.
 
 For questions and support, contact [Fastwp](mailto:dev@josef.com.br)
 
+## 💖 Support Development
+
+If this plugin has been helpful to you and you want to support continued development, consider making a donation via PIX:
+
+**PIX Key:** josefizudaa@gmail.com
+
+Your contribution helps keep this project maintained and improved. Every donation, no matter the size, is greatly appreciated and motivates us to continue developing free tools for the community.
+
+Thank you for your support! 🙏
+
 ---
 
 **Developed with ❤️ for the Listeo theme**
