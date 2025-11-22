@@ -32,6 +32,17 @@ class Listeo_Location_Search_Fields {
     }
 
     /**
+     * Check if empty terms should be hidden
+     * @return bool True to hide empty terms, False to show all terms
+     */
+    private function should_hide_empty() {
+        // Get the setting, default to '0' (show all terms)
+        $show_empty = get_option('listeo_location_show_empty_terms', '0');
+        // Return opposite: if show_empty is '1', return false (don't hide), if '0', return true (hide)
+        return $show_empty !== '1';
+    }
+
+    /**
      * Constructor
      */
     public function __construct() {
@@ -76,7 +87,7 @@ class Listeo_Location_Search_Fields {
 
         $cidades = get_terms(array(
             'taxonomy' => 'cidade',
-            'hide_empty' => false, // Changed to false for debugging
+            'hide_empty' => $this->should_hide_empty(),
             'meta_query' => array(
                 array(
                     'key' => 'parent_estado',
@@ -125,7 +136,7 @@ class Listeo_Location_Search_Fields {
 
         $bairros = get_terms(array(
             'taxonomy' => 'bairro',
-            'hide_empty' => true,
+            'hide_empty' => $this->should_hide_empty(),
             'meta_query' => array(
                 array(
                     'key' => 'parent_cidade',
@@ -204,7 +215,7 @@ class Listeo_Location_Search_Fields {
 
         $estados = get_terms(array(
             'taxonomy' => 'estado',
-            'hide_empty' => true,
+            'hide_empty' => $this->should_hide_empty(),
             'orderby' => 'name',
             'order' => 'ASC'
         ));
@@ -220,7 +231,7 @@ class Listeo_Location_Search_Fields {
                             <?php
                             $categories = get_terms(array(
                                 'taxonomy' => 'listing_category',
-                                'hide_empty' => true,
+                                'hide_empty' => $this->should_hide_empty(),
                                 'orderby' => 'name',
                                 'order' => 'ASC'
                             ));
@@ -385,14 +396,14 @@ class Listeo_Location_Search_Fields {
 
         $estados = get_terms(array(
             'taxonomy' => 'estado',
-            'hide_empty' => true,
+            'hide_empty' => $this->should_hide_empty(),
             'orderby' => 'name',
             'order' => 'ASC'
         ));
 
         $categories = get_terms(array(
             'taxonomy' => 'listing_category',
-            'hide_empty' => true,
+            'hide_empty' => $this->should_hide_empty(),
             'orderby' => 'name',
             'order' => 'ASC'
         ));
@@ -780,14 +791,14 @@ class Listeo_Location_Search_Fields {
 
         $estados = get_terms(array(
             'taxonomy' => 'estado',
-            'hide_empty' => true,
+            'hide_empty' => $this->should_hide_empty(),
             'orderby' => 'name',
             'order' => 'ASC'
         ));
 
         $tipos_imovel = get_terms(array(
             'taxonomy' => 'tipo_de_imovel',
-            'hide_empty' => true,
+            'hide_empty' => $this->should_hide_empty(),
             'orderby' => 'name',
             'order' => 'ASC'
         ));
@@ -1282,14 +1293,14 @@ class Listeo_Location_Search_Fields {
 
         $estados = get_terms(array(
             'taxonomy' => 'estado',
-            'hide_empty' => true,
+            'hide_empty' => $this->should_hide_empty(),
             'orderby' => 'name',
             'order' => 'ASC'
         ));
 
         $tipos_imovel = get_terms(array(
             'taxonomy' => 'tipo_de_imovel',
-            'hide_empty' => true,
+            'hide_empty' => $this->should_hide_empty(),
             'orderby' => 'name',
             'order' => 'ASC'
         ));
@@ -1804,7 +1815,7 @@ class Listeo_Location_Search_Fields {
 
         $estados = get_terms(array(
             'taxonomy' => 'estado',
-            'hide_empty' => true,
+            'hide_empty' => $this->should_hide_empty(),
             'orderby' => 'name',
             'order' => 'ASC'
         ));
@@ -1841,7 +1852,7 @@ class Listeo_Location_Search_Fields {
         // Get cidades based on selected estado
         $cidades_args = array(
             'taxonomy' => 'cidade',
-            'hide_empty' => true,
+            'hide_empty' => $this->should_hide_empty(),
             'orderby' => 'name',
             'order' => 'ASC'
         );
@@ -1892,7 +1903,7 @@ class Listeo_Location_Search_Fields {
         // Get bairros based on selected cidade
         $bairros_args = array(
             'taxonomy' => 'bairro',
-            'hide_empty' => true,
+            'hide_empty' => $this->should_hide_empty(),
             'orderby' => 'name',
             'order' => 'ASC'
         );
@@ -1939,7 +1950,7 @@ class Listeo_Location_Search_Fields {
 
         $categories = get_terms(array(
             'taxonomy' => 'listing_category',
-            'hide_empty' => true,
+            'hide_empty' => $this->should_hide_empty(),
             'orderby' => 'name',
             'order' => 'ASC'
         ));
@@ -1972,7 +1983,7 @@ class Listeo_Location_Search_Fields {
 
         $tipos = get_terms(array(
             'taxonomy' => 'tipo_de_negocio',
-            'hide_empty' => true,
+            'hide_empty' => $this->should_hide_empty(),
             'orderby' => 'name',
             'order' => 'ASC'
         ));
@@ -2005,7 +2016,7 @@ class Listeo_Location_Search_Fields {
 
         $tipos = get_terms(array(
             'taxonomy' => 'tipo_de_imovel',
-            'hide_empty' => true,
+            'hide_empty' => $this->should_hide_empty(),
             'orderby' => 'name',
             'order' => 'ASC'
         ));

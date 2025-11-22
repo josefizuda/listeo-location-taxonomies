@@ -68,6 +68,9 @@ class Listeo_Location_Admin {
 
         // Handle AJAX repair relationships
         add_action('wp_ajax_listeo_repair_relationships', array($this, 'ajax_repair_relationships'));
+
+        // Handle AJAX save settings
+        add_action('wp_ajax_listeo_save_settings', array($this, 'ajax_save_settings'));
     }
 
     /**
@@ -422,6 +425,45 @@ class Listeo_Location_Admin {
 
                 <div id="repair-relationships-result" style="margin-top: 15px;"></div>
             </div>
+
+            <!-- Settings Card -->
+            <div class="card" style="max-width: 800px; margin-top: 20px;">
+                <h2><?php _e('Configurações de Exibição', 'listeo-location-taxonomies'); ?></h2>
+                <p><?php _e('Configure como os estados, cidades e bairros devem ser exibidos nos formulários de busca.', 'listeo-location-taxonomies'); ?></p>
+
+                <table class="form-table" role="presentation">
+                    <tbody>
+                        <tr>
+                            <th scope="row">
+                                <label for="show_empty_terms">
+                                    <?php _e('Exibir termos sem anúncios', 'listeo-location-taxonomies'); ?>
+                                </label>
+                            </th>
+                            <td>
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="show_empty_terms"
+                                        id="show_empty_terms"
+                                        value="1"
+                                        <?php checked(get_option('listeo_location_show_empty_terms', '0'), '1'); ?>
+                                    />
+                                    <?php _e('Mostrar estados, cidades e bairros mesmo quando não possuem anúncios cadastrados', 'listeo-location-taxonomies'); ?>
+                                </label>
+                                <p class="description">
+                                    <?php _e('Quando marcado, todos os estados, cidades e bairros serão exibidos nos formulários de busca, mesmo que não tenham anúncios associados. Quando desmarcado, apenas termos com anúncios serão mostrados.', 'listeo-location-taxonomies'); ?>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <button type="button" id="save-settings-btn" class="button button-primary">
+                    <?php _e('Salvar Configurações', 'listeo-location-taxonomies'); ?>
+                </button>
+
+                <div id="save-settings-result" style="margin-top: 15px;"></div>
+            </div>
         </div>
 
         <script>
@@ -719,6 +761,39 @@ class Listeo_Location_Admin {
                     error: function() {
                         $btn.prop('disabled', false).text('<?php _e('Reparar Relacionamentos Agora', 'listeo-location-taxonomies'); ?>');
                         $result.html('<div class="notice notice-error inline"><p><?php _e('Erro ao reparar relacionamentos.', 'listeo-location-taxonomies'); ?></p></div>');
+                    }
+                });
+            });
+
+            // Save Settings
+            $('#save-settings-btn').on('click', function() {
+                var $btn = $(this);
+                var $result = $('#save-settings-result');
+                var showEmpty = $('#show_empty_terms').is(':checked') ? '1' : '0';
+
+                $btn.prop('disabled', true).text('<?php _e('Salvando...', 'listeo-location-taxonomies'); ?>');
+                $result.empty();
+
+                $.ajax({
+                    url: ajaxurl,
+                    type: 'POST',
+                    data: {
+                        action: 'listeo_save_settings',
+                        show_empty_terms: showEmpty,
+                        nonce: '<?php echo wp_create_nonce('listeo_import_ibge'); ?>'
+                    },
+                    success: function(response) {
+                        $btn.prop('disabled', false).text('<?php _e('Salvar Configurações', 'listeo-location-taxonomies'); ?>');
+
+                        if (response.success) {
+                            $result.html('<div class="notice notice-success inline"><p>' + response.data.message + '</p></div>');
+                        } else {
+                            $result.html('<div class="notice notice-error inline"><p>' + response.data.message + '</p></div>');
+                        }
+                    },
+                    error: function() {
+                        $btn.prop('disabled', false).text('<?php _e('Salvar Configurações', 'listeo-location-taxonomies'); ?>');
+                        $result.html('<div class="notice notice-error inline"><p><?php _e('Erro ao salvar configurações.', 'listeo-location-taxonomies'); ?></p></div>');
                     }
                 });
             });
@@ -1131,6 +1206,26 @@ class Listeo_Location_Admin {
                 $skipped,
                 $errors
             )
+        ));
+    }
+
+    /**
+     * AJAX: Save plugin settings
+     */
+    public function ajax_save_settings() {
+        check_ajax_referer('listeo_import_ibge', 'nonce');
+
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error(array('message' => __('Permissão negada.', 'listeo-location-taxonomies')));
+        }
+
+        $show_empty_terms = isset($_POST['show_empty_terms']) ? sanitize_text_field($_POST['show_empty_terms']) : '0';
+
+        // Save the option
+        update_option('listeo_location_show_empty_terms', $show_empty_terms);
+
+        wp_send_json_success(array(
+            'message' => __('Configurações salvas com sucesso!', 'listeo-location-taxonomies')
         ));
     }
 }
