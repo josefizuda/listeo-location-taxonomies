@@ -42,8 +42,11 @@
             // Initialize Bootstrap Select (selectpicker) used by Listeo
             if ($.fn.selectpicker) {
                 $('.listeo-location-filter').selectpicker({
-                    liveSearch: false,
-                    noneSelectedText: ''
+                    liveSearch: true,
+                    liveSearchPlaceholder: 'Pesquisar...',
+                    liveSearchNormalize: true,
+                    noneSelectedText: '',
+                    size: 7
                 });
             }
         },
@@ -226,7 +229,14 @@
             $select.prop('disabled', true);
 
             if ($.fn.selectpicker) {
-                $select.selectpicker('refresh');
+                $select.selectpicker('destroy');
+                $select.selectpicker({
+                    liveSearch: true,
+                    liveSearchPlaceholder: 'Pesquisar...',
+                    liveSearchNormalize: true,
+                    noneSelectedText: '',
+                    size: 7
+                });
             }
         },
 
@@ -234,7 +244,15 @@
             var $select = $(selector);
 
             if ($.fn.selectpicker) {
-                $select.selectpicker('refresh');
+                // Destroy and re-initialize to ensure live search works
+                $select.selectpicker('destroy');
+                $select.selectpicker({
+                    liveSearch: true,
+                    liveSearchPlaceholder: 'Pesquisar...',
+                    liveSearchNormalize: true,
+                    noneSelectedText: '',
+                    size: 7
+                });
             }
         },
 

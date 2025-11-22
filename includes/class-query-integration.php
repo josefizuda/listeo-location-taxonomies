@@ -43,6 +43,9 @@ class Listeo_Location_Query_Integration {
 
         // Add data attributes for AJAX filters (compatible with Listeo)
         add_filter('listeo/listings-list-data-tags', array($this, 'add_location_data_tags'), 10, 2);
+
+        // Add support for Listeo theme search query args
+        add_filter('listeo_core_search_query_args', array($this, 'add_location_to_listeo_query'), 10, 1);
     }
 
     /**
@@ -303,5 +306,71 @@ class Listeo_Location_Query_Integration {
         }
 
         return true;
+    }
+
+    /**
+     * Add location filters to Listeo theme search query
+     * This integrates with Listeo's search functionality
+     *
+     * @param array $args WP_Query arguments from Listeo
+     * @return array Modified arguments
+     */
+    public function add_location_to_listeo_query($args) {
+        // Get location filter values
+        $estado = $this->get_filter_value('estado');
+        $cidade = $this->get_filter_value('cidade');
+        $bairro = $this->get_filter_value('bairro');
+
+        // If no location filters are set, return original args
+        if (!$estado && !$cidade && !$bairro) {
+            return $args;
+        }
+
+        // Get existing tax_query or create new one
+        $tax_query = isset($args['tax_query']) ? $args['tax_query'] : array();
+
+        if (!is_array($tax_query)) {
+            $tax_query = array();
+        }
+
+        // Ensure we have a relation set
+        if (!isset($tax_query['relation'])) {
+            $tax_query['relation'] = 'AND';
+        }
+
+        // Add estado filter
+        if ($estado) {
+            $tax_query[] = array(
+                'taxonomy' => 'estado',
+                'field'    => 'slug',
+                'terms'    => is_array($estado) ? $estado : array($estado),
+                'operator' => 'IN'
+            );
+        }
+
+        // Add cidade filter
+        if ($cidade) {
+            $tax_query[] = array(
+                'taxonomy' => 'cidade',
+                'field'    => 'slug',
+                'terms'    => is_array($cidade) ? $cidade : array($cidade),
+                'operator' => 'IN'
+            );
+        }
+
+        // Add bairro filter
+        if ($bairro) {
+            $tax_query[] = array(
+                'taxonomy' => 'bairro',
+                'field'    => 'slug',
+                'terms'    => is_array($bairro) ? $bairro : array($bairro),
+                'operator' => 'IN'
+            );
+        }
+
+        // Set the modified tax_query back to args
+        $args['tax_query'] = $tax_query;
+
+        return $args;
     }
 }
